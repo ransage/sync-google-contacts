@@ -137,7 +137,7 @@ class UserContacts(object):
         else:
           credentials.refresh(http)
 
-        self.gd_client = gdata.contacts.client.ContactsClient(domain='pdx.iyhusa.com')
+        self.gd_client = gdata.contacts.client.ContactsClient(domain='your.domain.com')
         self.gd_client.auth_token = gdata.gauth.OAuth2TokenFromCredentials(credentials)
 
         ##
@@ -179,54 +179,12 @@ class UserContacts(object):
         #           if debug:
         #               print (entry.id.text)
          #               print TrimRight(entry.id.text, 16)
-# http://www.google.com/m8/feeds/contacts/iyh_admin_storage1%40pdx.iyhusa.com/base/3b57fe09930c76
+
 
                     if entry.id.text:
                         import requests
                         from xml.etree import ElementTree
-#                       print '******************************************'
 
-#                       testcontacturl  = 'https://www.google.com/m8/feeds/contacts/' + email + '/full/'+ TrimRight(entry.id.text, 16)
-#                       print 'textcontacturl' + testcontacturl
-
-#                       print '******************************************'
-
-#                       testcontact = self.gd_client.GetContact(testcontacturl)
-#                       print testcontact
-#                       print '******************************************'
-
-#                       testphotourl = 'https://www.google.com/m8/feeds/photos/media/' + email + '/' + TrimRight(entry.id.text, 16)
-#                       print 'textphotourl' + testphotourl
-
-#                       testphoto = self.gd_client.GetContact(testphotourl)
-#                       print testphoto
-#                       print '******************************************'
-#                       file = self.gd_client.Get('https://www.google.com/m8/feeds/photos/media/iyh_admin_storage1%40pdx.iyhusa.com/14d6c4fe0d01397f')
-#                       n = self.gd_client.get_photo(entry)
-#                       import cStringIO
-#                       file = cStringIO.StringIO(n)
-#                       from PIL import Image
-#                       n1 = Image.open(file)
-#                       n1.show()
-#                       print testphoto.json
-#                       tree = ElementTree.parse(testphoto)
-#                       tree
-#                       print testphoto
-# show the XML declaration
-#                   tree = ElementTree.fromstring(testphoto.content)
-#                   testphoto = self.gd_client.GetContacts(testphotourl)
-#                   print testphoto
-
-
-#                   for extended_property in testphoto:
-#                             if extended_property.value:
-#                               value = extended_property.value
-#                             else:
-#                               value = extended_property.GetXmlBlob()
-#                             print '    TestPhotoProperty - %s: %s' % (extended_property.name, value)
-
-#                   gd_client.GetPhoto(testcontact)
-#                   https://www.google.com/m8/feeds/photos/media/{userEmail}/{contactId}
                     for obj in entry.extended_property:
                         if obj.name == SYNC_ID_TAG:
                             uid_obj = obj
@@ -803,10 +761,6 @@ def AddContactToUser(contacts, srcEntry):
 def UpdateContactInUser(contacts, srcEntry, user):
     # Make a copy so the original isn't modified
     entry = copy.copy(srcEntry)
-#                       print testphoto
-#                       print '******************************************'
-#                       file = self.gd_client.Get('https://www.google.com/m8/feeds/photos/media/iyh_admin_storage1%40pdx.iyhusa.com/14d6c4fe0d01397f')
-#                       n = self.gd_client.get_photo(entry)
 
 #    if debug:
 #                        print 'authorized'
@@ -828,81 +782,10 @@ def UpdateContactInUser(contacts, srcEntry, user):
     config = ConfigParser.SafeConfigParser()
     config.read(os.path.expanduser('~') + '/.google/config')
     email1 = config.get('account-' + user, 'user')
-#    print email1
-#    email1 = email4
-#    print email1
-# email1 is OLD/Source
-#    testcontacturl  = 'https://www.google.com/m8/feeds/contacts/' + email1 + '/full/14d6c4fe0d01397f'
-#    oldphotourl  = 'https://www.google.com/m8/feeds/photos/media/' + email1 + '/14d6c4fe0d01397f'
-
- #   newtarget =  'https://www.google.com/m8/feeds/photos/media/' + email1 + '/14d6c4fe0d01397f'
- #   print testcontacturl
-#    SCOPE = 'https://www.google.com/m8/feeds'
-#    flow = flow_from_clientsecrets('./.google/authdata/client_secret_976746689114-2mtt9ci42ie45hn00irn80h28vkktms8.apps.googleusercontent.com.json',
-#                               scope=SCOPE,
-#                               redirect_uri='http://localhost')#
-#
-#    storage = Storage('./.google/authdata/'+email4+'.dat')
-#    credentials = storage.get()
-#    flags = tools.argparser.parse_args(args=['--noauth_local_webserver', '--logging_level=DEBUG'])
-#    if credentials is None or credentials.invalid:
-#            credentials = tools.run_flow(flow, storage, flags)
-
-# Munge the data in the credentials into a gdata OAuth2Token
-# This is based on information in this blog post:
-# https://groups.google.com/forum/m/#!msg/google-apps-developer-blog/1pGRCivuSUI/3EAIioKp0-wJ
-
-#    auth2token = gdata.gauth.OAuth2Token(client_id=credentials.client_id,
- #         client_secret=credentials.client_secret,
- #         scope=SCOPE,
- #         access_token=credentials.access_token,
- #         refresh_token=credentials.refresh_token,
- #         user_agent=email1)
-# Create a gdata client
-
-
- #   gd_client2 = gdata.contacts.client.ContactsClient(domain='pdx.iyhusa.com',
-#                                        auth_token=auth2token)
-
-#    auth2token.authorize(gd_client2)
-#    if debug:
- #                       print 'authorized'
-
-
- #   testcontacturl  = 'https://www.google.com/m8/feeds/contacts/' + email1 + '/full/'+ TrimRight(entry.id.text, 16)
-  #  oldphotourl  = 'https://www.google.com/m8/feeds/photos/media/' + email1 + '/' + TrimRight(entry.id.text, 16)
-  #  print testcontacturl
-#    print oldphotourl
-
- #   print email1
- #   testcontact = gd_client2.GetContact(testcontacturl)
- #   testphoto = gd_client2.GetContact(oldphotourl)
-#    f = open('tempfile.jpg', 'wb')
-#    print n
-#    import shutil
-#    n = gd_client2.get_photo(oldphotourl, stream=True)
-#    h = httplib2.Http(".cache")
- #   photolink = entry.GetPhotoLink().href
- #   photoetag = entry.GetPhotoLink().etag
- #   r = gd_client2.get(photolink)
- #       if request.status == 200:
-#        photo = str(request.read())
- #   photo = r.read()
- #   fname = 'test.jpg'
- #   image_file = open(fname, 'wb')
- #   image_file.write(photo)
-#        image_file.close()
-    #print n
-#DocsList.getFileById("IMAGE_FILE_ID").getBlob().getBytes();DocsList.getFileById("IM
-#    f.write(n.decode('base64'))
-#    f.close
-   #print test
-    #gd_client1.change_photo('1.jpg', newphotourl, content_type='image/*', etag='*')
     entry.id = cur_entry.id
     entry.etag = cur_entry.etag
     entry.link = cur_entry.link
 
-    # updater11
     # Update the server
     return contacts.ContactUpdate(entry)
 
